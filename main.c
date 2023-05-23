@@ -37,19 +37,26 @@ sem_wait(sem);
 
 int main(void) {
     int status;
-    sem_t mutex;
+    sem_t *sem = sem_open(SNAME, O_CREAT, 0777, 0);
 
-//    sem_init(&mutex, 1, 1);
     status = fork();
     if (status == 0){
         printf("No! it's not true! it's impossible\n");
+        sem_post(sem);
+        sem_wait(sem);
         printf("Noooooooooooooo\n");
+        sem_post(sem);
     }
     else{
         printf("Luke, I am your father!\n");
+        sem_wait(sem);
+        sem_post(sem);
         printf("Search your feelings, you know it to be true.\n");
+        sem_wait(sem);
         printf("luke, you can destroy the emperor, he has foreseen it.\n");
     }
+
+    sem_close(sem);
     return 1;
 }
 
