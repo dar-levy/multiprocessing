@@ -35,47 +35,28 @@ sem_post(sem);
 sem_wait(sem);
 */
 
-void write_to_fd(int fd[2]) {
-    close(fd[0]);
-    write(fd[1],"true", sizeof(char[50]));
-    close(fd[1]);
-}
-
-void read_from_fd(int fd[2]) {
-    close(fd[1]);
-    int x;
-    read(fd[0], &x, sizeof(int));
-    close(fd[0]);
-}
-
 int main(void) {
     int status;
-    int fd1[2];
-    int fd2[2];
-    int fd3[2];
-    int fd4[2];
-    pipe(fd1);
-    pipe(fd2);
-    pipe(fd3);
-    pipe(fd4);
+    sem_t *sem = sem_open(SNAME, O_CREAT, 0777, 0);
 
     status = fork();
     if (status == 0){
         printf("No! it's not true! it's impossible\n");
-        write_to_fd(fd2);
-        read_from_fd(fd3);
+        sem_post(sem);
+        sem_wait(sem);
         printf("Noooooooooooooo\n");
-        write_to_fd(fd4);
+        sem_post(sem);
     }
     else{
         printf("Luke, I am your father!\n");
-        write_to_fd(fd1);
-        read_from_fd(fd2);
+        sem_wait(sem);
+        sem_post(sem);
         printf("Search your feelings, you know it to be true.\n");
-        write_to_fd(fd3);
-        read_from_fd(fd4);
+        sem_wait(sem);
         printf("luke, you can destroy the emperor, he has foreseen it.\n");
     }
+
+    sem_close(sem);
     return 1;
 }
 
