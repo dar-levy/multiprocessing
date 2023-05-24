@@ -48,7 +48,7 @@ void *threadFunc(void *vargp){
         printf("No! it's not true! it's impossible\n");
         flag = 1;
     }
-    sleep(1);
+    sleep(3);
     if (flag == 1 && k == 2) {
         printf("Noooooooooooooo\n");
         flag = 2;
@@ -62,14 +62,14 @@ void *threadFunc(void *vargp){
         k = 1;
     }
 
-    sleep(1);
+    sleep(2);
 
     if (flag == 1 && k == 1) {
         printf("Search your feelings, you know it to be true.\n");
         k = 2;
     }
 
-    sleep(1);
+    sleep(4);
 
     if (flag == 2 && k == 2) {
         printf("luke, you can destroy the emperor, he has foreseen it.\n");
