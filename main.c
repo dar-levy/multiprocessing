@@ -41,9 +41,25 @@ int k = 0;
 static pthread_mutex_t my_lock1 = PTHREAD_MUTEX_INITIALIZER;
 static pthread_mutex_t my_lock2 = PTHREAD_MUTEX_INITIALIZER;
 
-void *threadFunc(void *vargp){
-    pthread_mutex_lock (&my_lock2);
-    sleep(1);
+void print_dark_vader_lines() {
+    if (flag == 0 && k == 0){
+        printf("Luke, I am your father!\n");
+        k = 1;
+
+        sleep(2);
+        if (flag == 1 && k == 1) {
+            printf("Search your feelings, you know it to be true.\n");
+            k = 2;
+        }
+
+        sleep(4);
+        if (flag == 2 && k == 2) {
+            printf("luke, you can destroy the emperor, he has foreseen it.\n");
+        }
+    }
+}
+
+void print_luke_lines() {
     if (flag == 0 && k == 1) {
         printf("No! it's not true! it's impossible\n");
         flag = 1;
@@ -53,28 +69,17 @@ void *threadFunc(void *vargp){
             flag = 2;
         }
     }
+}
+
+void *threadFunc(void *vargp){
+    pthread_mutex_lock (&my_lock2);
+    sleep(1);
+    print_luke_lines();
     pthread_mutex_unlock(&my_lock2);
 
 
     pthread_mutex_lock (&my_lock1);
-    if (flag == 0 && k == 0){
-        printf("Luke, I am your father!\n");
-        k = 1;
-
-        sleep(2);
-
-        if (flag == 1 && k == 1) {
-            printf("Search your feelings, you know it to be true.\n");
-            k = 2;
-        }
-
-        sleep(4);
-
-        if (flag == 2 && k == 2) {
-            printf("luke, you can destroy the emperor, he has foreseen it.\n");
-            flag = 3;
-        }
-    }
+    print_dark_vader_lines();
     pthread_mutex_unlock(&my_lock1);
 
     return NULL;
