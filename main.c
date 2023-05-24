@@ -45,13 +45,13 @@ void print_dark_vader_lines() {
     printf("Luke, I am your father!\n");
     sleep(2);
     printf("Search your feelings, you know it to be true.\n");
-    sleep(1);
+    sleep(4);
     printf("luke, you can destroy the emperor, he has foreseen it.\n");
 }
 
 void print_luke_lines() {
     printf("No! it's not true! it's impossible\n");
-    sleep(1);
+    sleep(3);
     printf("Noooooooooooooo\n");
 }
 
