@@ -38,51 +38,44 @@ int flag = 0;
 
 int k = 0;
 
-static pthread_mutex_t my_lock = PTHREAD_MUTEX_INITIALIZER;
+static pthread_mutex_t my_lock1 = PTHREAD_MUTEX_INITIALIZER;
+static pthread_mutex_t my_lock2 = PTHREAD_MUTEX_INITIALIZER;
 
 void *threadFunc(void *vargp){
-    pthread_mutex_lock (&my_lock);
+    pthread_mutex_lock (&my_lock2);
+    sleep(1);
     if (flag == 0 && k == 1) {
         printf("No! it's not true! it's impossible\n");
         flag = 1;
     }
-    pthread_mutex_unlock(&my_lock);
-
     sleep(1);
-
-    pthread_mutex_lock (&my_lock);
     if (flag == 1 && k == 2) {
         printf("Noooooooooooooo\n");
         flag = 2;
     }
-    pthread_mutex_unlock(&my_lock);
+    pthread_mutex_unlock(&my_lock2);
 
-    sleep(1);
 
-    pthread_mutex_lock (&my_lock);
+    pthread_mutex_lock (&my_lock1);
     if (flag == 0 && k == 0){
         printf("Luke, I am your father!\n");
         k = 1;
     }
-    pthread_mutex_unlock(&my_lock);
 
     sleep(1);
 
-    pthread_mutex_lock (&my_lock);
     if (flag == 1 && k == 1) {
         printf("Search your feelings, you know it to be true.\n");
         k = 2;
     }
-    pthread_mutex_unlock(&my_lock);
 
     sleep(1);
 
-    pthread_mutex_lock (&my_lock);
     if (flag == 2 && k == 2) {
         printf("luke, you can destroy the emperor, he has foreseen it.\n");
         flag = 3;
     }
-    pthread_mutex_unlock(&my_lock);
+    pthread_mutex_unlock(&my_lock1);
 
     return NULL;
 }
