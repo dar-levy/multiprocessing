@@ -45,29 +45,18 @@ void print_dark_vader_lines() {
     if (flag == 0 && k == 0){
         printf("Luke, I am your father!\n");
         k = 1;
-
         sleep(2);
-        if (flag == 1 && k == 1) {
-            printf("Search your feelings, you know it to be true.\n");
-            k = 2;
-        }
-
+        printf("Search your feelings, you know it to be true.\n");
         sleep(4);
-        if (flag == 2 && k == 2) {
-            printf("luke, you can destroy the emperor, he has foreseen it.\n");
-        }
+        printf("luke, you can destroy the emperor, he has foreseen it.\n");
     }
 }
 
 void print_luke_lines() {
     if (flag == 0 && k == 1) {
         printf("No! it's not true! it's impossible\n");
-        flag = 1;
         sleep(3);
-        if (flag == 1 && k == 2) {
-            printf("Noooooooooooooo\n");
-            flag = 2;
-        }
+        printf("Noooooooooooooo\n");
     }
 }
 
@@ -76,7 +65,6 @@ void *threadFunc(void *vargp){
     sleep(1);
     print_luke_lines();
     pthread_mutex_unlock(&my_lock2);
-
 
     pthread_mutex_lock (&my_lock1);
     print_dark_vader_lines();
